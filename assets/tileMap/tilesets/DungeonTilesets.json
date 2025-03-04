@@ -1,0 +1,10 @@
+{
+    "tilesetImg": "DungeonTilesets.png",
+    "tileSize": {
+        "width": 48,
+        "height": 48
+    },
+    "tileLayout": [
+        ["sand", "rock", "lava", "water"]
+    ]
+}
