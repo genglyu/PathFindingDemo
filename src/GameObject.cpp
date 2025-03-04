@@ -32,37 +32,51 @@ bool GameObject::destroy()
     return true;
 }
 
-
 bool GameObject::setTexture(const sf::Texture& texture)
 {
-    std::cout << "Setting texture for game object: " << name << std::endl;
-
     if (sprite == nullptr)
     {
-        sprite = std::make_unique<sf::Sprite>(texture);
-        return true;
+        sprite = std::make_unique<sf::Sprite>(texture); // create a new sprite with the texture
     }
     else
     {
         sprite->setTexture(texture);
-        return true;
     }
 }
 
-// bool GameObject::setTexture(const sf::Texture& texture, const sf::IntRect& rectangle)
-// {
-//     if (sprite == nullptr)
-//     {
-//         sprite = std::make_unique<sf::Sprite>(texture, rectangle);
-//         return true;
-//     }
-//     else
-//     {
-//         sprite->setTexture(texture);
-//         sprite->setTextureRect(rectangle);
-//         return true;
-//     }
-// }
+bool GameObject::setTexture(const sf::Texture& texture, const sf::IntRect& cropRectangle)
+{
+    try{
+        std::cout << "Setting texture for game object: " << name << std::endl;
+
+        if (sprite == nullptr)
+        {
+            sprite = std::make_unique<sf::Sprite>(texture, cropRectangle); // create a new sprite with the texture
+        }
+        else
+        {
+            // check if the cropRectangle size is 0, if it is, load the whole texture
+            if (cropRectangle.size.x == 0 && cropRectangle.size.y == 0)
+            {
+                std::cout << "Setting texture for game object: " << name << " with whole img" << std::endl;
+                sprite->setTexture(texture, false);
+            }
+            else
+            {
+                std::cout << "Setting texture for game object: " << name << " with crop img" << std::endl;
+                sprite->setTexture(texture, true);
+                sprite->setTextureRect(cropRectangle);
+            }
+        }
+        return true;
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+        return false;
+    }
+
+}
 
 bool GameObject::attachToParent(GameObject* parent)
 {

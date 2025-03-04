@@ -2,6 +2,10 @@
     "tileTexture": {
         "dungeonTilesets": "tilesets/dungeonTilesets.json"
     },
+    "tileSize": {
+        "width": 48,
+        "height": 48
+    },
     "indexMaping": {
         "  ": ["dungeonTilesets", "sand"],
         "--": ["dungeonTilesets", "rock"],

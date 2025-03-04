@@ -1,3 +1,4 @@
+#pragma once
 // in this file we define the TileMap class, which is a class that represents a map of tiles
 // the map is a 2D array of tiles, and each tile has a texture and a position
 
@@ -7,6 +8,18 @@
 #include <filesystem>
 #include <map>
 
+
+// define a struct to contain the info of one tileset. 
+// it has the texture of the tileset, the size of the tiles, maping from tileID to tile rect in the tileset
+class TilesetData
+{
+    public:
+        sf::Texture texture;
+        sf::Vector2u tileSize;
+        std::map<std::string, sf::IntRect> tileRects;
+};
+
+
 // TileMap is a game object that represents a map of tiles, it has a 2D array of tiles, and each tile has a texture and a position
 
 class TileMap : public GameObject 
@@ -15,14 +28,19 @@ class TileMap : public GameObject
     TileMap(std::string tileMapName = ""); // TileMap is a game object has no sprite, but multiple children game objects, so no texture is needed
     ~TileMap();
 
-    // The source texture of the tilesets
-    sf::Texture tilesetsTexture;
+    // The source texture of the tileset
+    // sf::Texture tilesetTexture;
     // Tileset parameters: size, vertical and horizontal count, and spacing
     sf::Vector2u tileSize = {48, 48};
     sf::Vector2u tileCount = {1, 1};
 
-    std::map<std::string, sf::Texture> tilesetTextures;
-    std::vector<std::vector<std::vector<std::string>>> tileMap; // layer, row, column of the tile map. The string elements are the name of the remapped tile indices.
+    // store the tileset data
+    std::map<std::string, TilesetData> tilesetTextureDataDict;
+    // 3D array of the map layout. layer, row, column of the tile map. The string elements are the name of the remapped tile indices.
+    // std::vector<std::vector<std::vector<std::string>>> tileMapLayout;
+    // 2D array of difficulty values
+    std::vector<std::vector<int>> difficultyMap;
+
 
     bool loadTileMapData(const std::string& tileMapDataFilepath);
 };

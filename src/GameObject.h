@@ -37,6 +37,7 @@ class GameObject
     
     // set the texture of the sprite
     bool setTexture(const sf::Texture& texture);
+    bool setTexture(const sf::Texture& texture, const sf::IntRect& cropRectangle);
     // // set the texture of the sprite from a sub-rectangle of a texture
     // bool setTexture(const sf::Texture& texture, const sf::IntRect& rectangle);
     

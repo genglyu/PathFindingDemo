@@ -22,7 +22,6 @@ void Game::initialize(unsigned int windowWidth,
 {
     window = new sf::RenderWindow(sf::VideoMode({windowWidth, windowHeight}), windowTitle);
     window->setFramerateLimit(frameRate);
-    window->setMouseCursorVisible(false);
     window->setMouseCursorVisible(cursorVisible);
 }
 
@@ -33,8 +32,10 @@ void Game::update()
     // std::cout << "Game object list sorted, size: " << gameObjectList.size() << std::endl;
 
     for (auto gameObject : gameObjectList)
-    {
-        gameObject->update();
+    {   
+        // std::cout << "Updating game object: " << gameObject->name << std::endl;
+        // gameObject->update();
+        gameObject->updateSprite();
     }
     // sort the game objects by depth
 }
@@ -47,7 +48,14 @@ void Game::draw()
     {
         if (gameObject->sprite != nullptr)
         {
-            window->draw(*gameObject->sprite);
+            // std::cout << "Drawing game object: " << gameObject->name << std::endl;
+            // // check if the sprite is still valid
+            // std::cout << "sprite position: " << gameObject->sprite->getPosition().x << ", " << gameObject->sprite->getPosition().y << std::endl;
+            // // check if the texture is still valid
+            // std::cout << "texture size: " << gameObject->sprite->getTexture().getSize().x << ", " << gameObject->sprite->getTexture().getSize().y << std::endl;
+
+            //draw the sprite of the gameObject
+            window->draw(*(gameObject->sprite));
         }
     }
     window->display();
