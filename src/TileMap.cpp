@@ -146,9 +146,8 @@ bool TileMap::loadTileMapData(const std::string& tileMapDataFilepath)
             {
                 for (int x = 0; x < tileMapData["mapLayout"][layer][y].size(); x++)
                 {
-                    std::cout << "Creating game object for tile at layer: " << layer << ", row: " << y << ", column: " << x << std::endl;
-                    std::cout << "        Remapped TileID: " << tileMapData["mapLayout"][layer][y][x] << std::endl;
-
+                    // std::cout << "Creating game object for tile at layer: " << layer << ", row: " << y << ", column: " << x << std::endl;
+                    // std::cout << "        Remapped TileID: " << tileMapData["mapLayout"][layer][y][x] << std::endl;
 
                     // get the tileID
                     std::string remappedTileID = tileMapData["mapLayout"][layer][y][x];
@@ -156,7 +155,7 @@ bool TileMap::loadTileMapData(const std::string& tileMapDataFilepath)
                     std::string tilesetName = tileMapData["indexMaping"][remappedTileID][0];
                     std::string tileName = tileMapData["indexMaping"][remappedTileID][1];
 
-                    std::cout << "        For this tile, tilesetName: " << tilesetName << ", tileName: " << tileName << std::endl;
+                    // std::cout << "        For this tile, tilesetName: " << tilesetName << ", tileName: " << tileName << std::endl;
 
                     sf::IntRect tileRect = tilesetTextureDataDict[tilesetName].tileRects[tileName];
 
@@ -169,17 +168,28 @@ bool TileMap::loadTileMapData(const std::string& tileMapDataFilepath)
                     
                     // get tile size from tileMapData json as int
 
-                    std::cout << "        Tile size: " << tileMapData["tileSize"]["width"]<< ", " << tileMapData["tileSize"]["height"]<< std::endl;
+                    // std::cout << "        Tile size: " << tileMapData["tileSize"]["width"]<< ", " << tileMapData["tileSize"]["height"]<< std::endl;
 
                     tile->position = {x * (tileMapData["tileSize"]["width"].get<float>()), y * tileMapData["tileSize"]["height"].get<float>()};
 
-                    std::cout << "        Tile position: " << tile->position.x << ", " << tile->position.y << std::endl;
+                    // std::cout << "        Tile position: " << tile->position.x << ", " << tile->position.y << std::endl;
 
                     // tile->position = {(float)x * tilesetTextureData.tileSize.x, (float)y * tilesetTextureData.tileSize.y};
                     // add the tile to the tileMap
                     addChild(tile);
                 }
             }
+        }
+        // store the difficulty map
+        std::cout << "Storing the difficulty map" << std::endl;
+        for (auto& row : tileMapData["difficultyMap"])
+        {
+            std::vector<int> difficultyRow;
+            for (auto& difficulty : row)
+            {
+                difficultyRow.push_back(difficulty);
+            }
+            difficultyMap.push_back(difficultyRow);
         }
         return true;
     }

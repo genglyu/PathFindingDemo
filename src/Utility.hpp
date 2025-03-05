@@ -1,6 +1,7 @@
 #include <iostream>
 #include <filesystem>
 
+
 // Solution via different platforms
 #if defined(_WIN32)
     #include <windows.h>
@@ -10,7 +11,9 @@
     #include <unistd.h>
 #endif
 
-std::filesystem::path getExecutablePath() {
+using namespace std;
+
+filesystem::path getExecutablePath() {
     char pathBuffer[1024];
 
 #if defined(_WIN32)
@@ -25,5 +28,5 @@ std::filesystem::path getExecutablePath() {
     }
 #endif
 
-    return std::filesystem::path(pathBuffer).parent_path();  // Return directory of the executable
+    return filesystem::path(pathBuffer).parent_path();  // Return directory of the executable
 }

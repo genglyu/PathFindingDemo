@@ -9,6 +9,7 @@
 #include <map>
 
 
+
 // define a struct to contain the info of one tileset. 
 // it has the texture of the tileset, the size of the tiles, maping from tileID to tile rect in the tileset
 class TilesetData
@@ -36,11 +37,8 @@ class TileMap : public GameObject
 
     // store the tileset data
     std::map<std::string, TilesetData> tilesetTextureDataDict;
-    // 3D array of the map layout. layer, row, column of the tile map. The string elements are the name of the remapped tile indices.
-    // std::vector<std::vector<std::vector<std::string>>> tileMapLayout;
     // 2D array of difficulty values
+    // int** difficultyMap;
     std::vector<std::vector<int>> difficultyMap;
-
-
     bool loadTileMapData(const std::string& tileMapDataFilepath);
 };

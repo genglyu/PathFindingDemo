@@ -34,13 +34,21 @@ bool GameObject::destroy()
 
 bool GameObject::setTexture(const sf::Texture& texture)
 {
-    if (sprite == nullptr)
-    {
-        sprite = std::make_unique<sf::Sprite>(texture); // create a new sprite with the texture
+    try {
+        if (sprite == nullptr)
+        {
+            sprite = std::make_unique<sf::Sprite>(texture); // create a new sprite with the texture
+        }
+        else
+        {
+            sprite->setTexture(texture);
+        }
+        return true;
     }
-    else
+    catch(const std::exception& e)
     {
-        sprite->setTexture(texture);
+        std::cerr << e.what() << '\n';
+        return false;
     }
 }
 
